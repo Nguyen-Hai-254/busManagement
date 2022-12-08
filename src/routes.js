@@ -23,7 +23,7 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
-import Hai from "views/Hai";
+import In_Route from "views/In_Route";
 import Pickup_point from "views/Pickup_point";
 
 const dashboardRoutes = [
@@ -85,15 +85,15 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/hai",
-    name: "Hai",
+    path: "/in_route",
+    name: "Thuộc tuyến xe",
     icon: "nc-icon nc-bell-55",
-    component: Hai,
+    component: In_Route,
     layout: "/admin"
   },
   {
     path: "/pickup_point",
-    name: "Pickup_point",
+    name: "Điểm đón khách",
     icon: "nc-icon nc-bell-55",
     component: Pickup_point,
     layout: "/admin"
