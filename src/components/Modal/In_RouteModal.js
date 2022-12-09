@@ -22,7 +22,7 @@ const ModalEditInRoute = ({ license_plate, route_id, movement_direction, No, onH
     };
 
     const [show, setShow] = useState(false);
-    const [editLicense_plate, setEditLicense_plate] = useState();
+    const [editLicense_plate, setEditLicense_plate] = useState(license_plate);
 
     const handleShow = () => {
         setShow(true);

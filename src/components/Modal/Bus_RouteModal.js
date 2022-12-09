@@ -22,7 +22,7 @@ const ModalEditBusRoute = ({ route_id, break_time, onHandleEdit }) => {
     };
 
     const [show, setShow] = useState(false);
-    const [editBreak_time, setEditBreak_time] = useState();
+    const [editBreak_time, setEditBreak_time] = useState(break_time);
 
     const handleShow = () => {
         setShow(true);

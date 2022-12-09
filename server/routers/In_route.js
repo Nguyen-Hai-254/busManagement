@@ -16,7 +16,6 @@ router.get("/get", (req, res) => {
     const sqlGet = "SELECT * FROM `IN ROUTE`";
 
     db.query(sqlGet, (err, result) => {
-        // console.log(result);
         res.send(result);
     });
 });

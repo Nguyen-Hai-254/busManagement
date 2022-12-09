@@ -3,18 +3,21 @@ import React, { useState, useRef } from "react";
 import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
 
 
-const ModalEditPickupPoint = ({ station_code, station_name, address, onHandleEdit }) => {
+const ModalEditShift = ({ No, start_time, finish_time, onHandleEdit }) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        console.log(editStart_time);
+        console.log(editFinish_time);
         try {
-            axios.put(`http://localhost:3001/pickup_point/edit/${station_code}`, {
-                station_name: editStation_name,
-                address: editAddress
+            axios.put(`http://localhost:3001/shift/edit/${No}`, {
+                start_time: editStart_time,
+                finish_time: editFinish_time
+                
             })
             // notifyUpdate("success");
             setShow(false);
-            onHandleEdit(station_code, editStation_name, editAddress);
+            onHandleEdit(No, editStart_time, editFinish_time);
         }
         catch (err) {
             // notifyUpdate("failed");
@@ -23,12 +26,11 @@ const ModalEditPickupPoint = ({ station_code, station_name, address, onHandleEdi
     };
 
     const [show, setShow] = useState(false);
-    const [editStation_name, setEditStation_name] = useState(station_name);
-    const [editAddress, setEditAddress] = useState(address);
+    const [editStart_time, setEditStart_time] = useState(start_time);
+    const [editFinish_time, setEditFinish_time] = useState(finish_time);
 
     const handleShow = () => {
         setShow(true);
-        // reset();
     };
     const buttonAddClose = {
         display: "grid",
@@ -60,37 +62,37 @@ const ModalEditPickupPoint = ({ station_code, station_name, address, onHandleEdi
             >
                 <Modal.Header closeButton>
                     <Modal.Title style={titleAdd} className="text-primary modal-title h4">
-                        UPDATE PICKUP POINT
+                        UPDATE SHIFT
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
                             <Row>
-                                <Col lg="4" md sm xs="4" >
-                                    <label>Mã điểm đón</label>
+                                <Col lg="6" md sm xs="4" >
+                                    <label>No</label>
                                     <Form.Control
                                         type="text"
-                                        defaultValue={station_code}
+                                        defaultValue={No}
                                         readOnly
                                     ></Form.Control>
                                 </Col>
-                                <Col lg="8" md sm xs="4" >
-                                    <label>Tên điểm đón</label>
+                                <Col lg="6" md sm xs="4" >
+                                    <label>Thời gian bắt đầu</label>
                                     <Form.Control
-                                        type="text"
-                                        defaultValue={station_name}
-                                        onChange={(e) => { setEditStation_name(e.target.value) }}
+                                        type="time"
+                                        defaultValue={start_time}
+                                        onChange={(e) => setEditStart_time(e.target.value)}
                                     ></Form.Control>
                                 </Col>
                             </Row>
                             <Row>
-                                <Col lg="12" md sm xs="4">
-                                    <label>Địa chỉ</label>
+                                <Col lg="6" md sm xs="4">
+                                    <label>Thời gian kết thúc</label>
                                     <Form.Control
-                                        type="text"
-                                        defaultValue={address}
-                                        onChange={(e) => { setEditAddress(e.target.value) }}
+                                        type="time"
+                                        defaultValue={finish_time}
+                                        onChange={(e) => setEditFinish_time(e.target.value)}
                                     ></Form.Control>
                                 </Col>
                             </Row>
@@ -129,4 +131,4 @@ const ModalEditPickupPoint = ({ station_code, station_name, address, onHandleEdi
     );
 }
 
-export default ModalEditPickupPoint;
+export default ModalEditShift;
