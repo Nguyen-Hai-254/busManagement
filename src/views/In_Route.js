@@ -20,7 +20,7 @@ const In_Route = () => {
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const url = 'http://localhost:3001/api/in_route/get';
+    const url = 'http://localhost:3001/in_route/get';
 
     const [license_plate, setLicense_plate] = useState();
     const [route_id, setRoute_id] = useState();
@@ -52,7 +52,7 @@ const In_Route = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/api/in_route/insert", {
+        axios.post("http://localhost:3001/in_route/insert", {
             license_plate: license_plate,
             route_id: route_id,
             movement_direction: movement_direction,
@@ -65,10 +65,7 @@ const In_Route = () => {
     }
 
     const handleDelete = (route_id, movement_direction, No) => {
-        console.log(route_id);
-        console.log(movement_direction);
-        console.log(No);
-        axios.delete(`http://localhost:3001/api/in_route/delete/${route_id}/${movement_direction}/${No}`)
+        axios.delete(`http://localhost:3001/in_route/delete/${route_id}/${movement_direction}/${No}`)
 
         let curr = dataInRoute;
         curr = curr.filter(item => item['ROUTE ID'] !== route_id || item['MOVEMENT DIRECTION'] !== movement_direction || item.No !== No)
@@ -142,7 +139,6 @@ const In_Route = () => {
                 <tbody>
                     {isError === false && loading === false && dataInRoute && dataInRoute.length > 0 &&
                         dataInRoute.map((item, index) => {
-                            const date = new Date(item.Date)
                             return (
                                 <tr key={index}>
                                     <td>{item['LICENSE PLATE']}</td>

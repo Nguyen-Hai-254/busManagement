@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ModalEditPickupPoint from "components/Modal/Pickup_point";
 
 import {
     Badge,
@@ -8,6 +9,7 @@ import {
     Navbar,
     Nav,
     Table,
+    Form,
     Container,
     Row,
     Col,
@@ -18,8 +20,13 @@ const Pickup_point = () => {
     const [dataPickUpPoint, setDataPickUpPoint] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
 
-    const url = 'http://localhost:3001/api/pickup_point/get';
+    const url = 'http://localhost:3001/pickup_point/get';
+
+    const [station_code, setStation_code] = useState();
+    const [station_name, setStation_name] = useState();
+    const [address, setAddress] = useState();
 
     useEffect(() => {
         const loadData = async () => {
@@ -42,9 +49,89 @@ const Pickup_point = () => {
 
     }, [url]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:3001/pickup_point/insert", {
+            station_code: station_code,
+            station_name: station_name,
+            address: address
+        })
+
+        alert("Successful Insert");
+        let newPickupPoint = { ['STATION CODE']: station_code, ['STATION NAME']: station_name, ADDRESS: address };
+        setDataPickUpPoint([...dataPickUpPoint, newPickupPoint]);
+    }
+
+    const handleDelete = (station_code) => {
+        axios.delete(`http://localhost:3001/pickup_point/delete/${station_code}`)
+
+        let curr = dataPickUpPoint;
+        curr = curr.filter(item => item['STATION CODE'] !== station_code)
+        setDataPickUpPoint(curr);
+    }
+
+    const handleEdit = (station_code, station_name, address) => {
+        let curr = dataPickUpPoint;
+        let index = curr.findIndex(item => item[`STATION CODE`] === station_code);
+        // curr[index][`STATION NAME`] = station_name;
+        // curr[index][`ADDRESS`] = address;
+
+        // console.log(curr[index][`STATION NAME`]);
+        // console.log(curr[index][`ADDRESS`]);
+
+        const newPickupPoint = { [`STATION CODE`]: station_code, [`STATION NAME`]: station_name, ADDRESS: address };
+        // curr[index] = newPickupPoint;
+
+        setDataPickUpPoint(curr.map((curr, index1) => index1 === index ? newPickupPoint : curr));
+    }
+
     return (
         <>
             <h3>Điểm đón khách</h3>
+
+            <Form>
+                <Row>
+                    <Col className="pr-1" md="2">
+                        <Form.Group>
+                            <label>Mã điểm đón</label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setStation_code(e.target.value) }}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="3">
+                        <Form.Group>
+                            <label>Tên điểm đón</label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setStation_name(e.target.value) }}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="4">
+                        <Form.Group>
+                            <label>Địa chỉ</label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setAddress(e.target.value) }}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+
+                    <Col className="px-1" md="2">
+                        <Button
+                            className="btn-fill pull-right repairSubmit"
+                            type="submit"
+                            variant="info"
+                            onClick={(e) => handleSubmit(e)}
+                        >
+                            Submit
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+
             <Table className="table-hover table-striped">
                 <thead>
                     <tr>
@@ -56,18 +143,27 @@ const Pickup_point = () => {
                 <tbody>
                     {isError === false && loading === false && dataPickUpPoint && dataPickUpPoint.length > 0 &&
                         dataPickUpPoint.map((item, index) => {
-                            const date = new Date(item.Date)
                             return (
                                 <tr key={index}>
                                     <td>{item['STATION CODE']}</td>
                                     <td>{item['STATION NAME']}</td>
                                     <td>{item['ADDRESS']}</td>
-                                    {/* <ModalUpdatePenalty
-                                        LICENSE PLATE = {item['LICENSE PLATE']}
-                                        ROUTE ID = {item['ROUTE ID']}
-                                        MOVEMENT DIRECTION = {item['MOVEMENT DIRECTION']}
-                                        No = {item.No}
-                                    /> */}
+                                    <td>
+                                        <ModalEditPickupPoint
+                                            station_code={item['STATION CODE']}
+                                            station_name={item['STATION NAME']}
+                                            address={item['ADDRESS']}
+                                            onHandleEdit={handleEdit}
+                                        />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() => {
+                                                handleDelete(item['STATION CODE'])
+                                            }}><i className="fas fa-trash"></i></Button>
+                                    </td>
                                 </tr>
                             )
                         })
