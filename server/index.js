@@ -4,7 +4,8 @@ import mysql from "mysql";
 import cors from 'cors';
 import Pickup_point from "./routers/Pickup_point.js";
 import In_Route from "./routers/In_route.js";
-import router from "./routers/Route.js";
+import Router from "./routers/Route.js";
+import Bus_Route from "./routers/Bus_route.js";
 
 const app = express();
 const db = mysql.createPool({
@@ -23,7 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/Pickup_point', Pickup_point);
 app.use('/In_route', In_Route);
-app.use('/route', router)
+app.use('/route', Router)
+app.use('/Bus_Route', Bus_Route)
 
 
 app.get("/", (req, res) => {

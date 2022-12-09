@@ -60,7 +60,7 @@ const In_Route = () => {
             No: No
         })
 
-        alert("Successful Insert");
+        // alert("Successful Insert");
         let newInRoute = { ['LICENSE PLATE']: license_plate, ['ROUTE ID']: route_id, ['MOVEMENT DIRECTION']: movement_direction, No: No };
         setDataInRoute([...dataInRoute, newInRoute]);
     }
@@ -106,7 +106,7 @@ const In_Route = () => {
                             ></Form.Control>
                         </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="2">
+                    <Col className="px-1" md="2">
                         <Form.Group>
                             <label htmlFor="exampleInputEmail1">Chiều di chuyển</label>
                             <Form.Control

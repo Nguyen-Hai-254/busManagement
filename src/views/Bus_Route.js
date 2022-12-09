@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import ModalEditBusRoute from "components/Modal/Bus_RouteModal";
 
 import {
     Badge,
@@ -14,29 +15,26 @@ import {
     Col,
 } from "react-bootstrap";
 
-const Route = () => {
+const Bus_Route = () => {
 
-    const [dataRoute, setDataRoute] = useState([]);
+    const [dataBusRoute, setDataBusRoute] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const url = 'http://localhost:3001/route/get';
+    const url = 'http://localhost:3001/bus_route/get';
 
     const [route_id, setRoute_id] = useState();
-    const [station_code, setStation_code] = useState();
-    const [order, setOrder] = useState();
-    const [dataStationName, setDataStationName] = useState([]);
-
+    const [break_time, setBreak_time] = useState();
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const res = await axios.get(url)
-                const dataRoute = res && res.data ? res.data : [];
-                setDataRoute(dataRoute);
+                const dataBusRoute = res && res.data ? res.data : [];
+                setDataBusRoute(dataBusRoute);
                 setLoading(false);
                 setIsError(false);
-                console.log(dataRoute);
+                console.log(dataBusRoute);
             }
             catch (e) {
                 setIsError(true);
@@ -49,53 +47,43 @@ const Route = () => {
 
     }, [url]);
 
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const res = await axios.get('http://localhost:3001/pickup_point/get')
-                const dataStationName = res && res.data ? res.data : [];
-                setDataStationName(dataStationName);
-                console.log(dataStationName);
-            }
-            catch (e) {
-                console.log('error: ', e.message);
-            }
-        }
-
-        loadData();
-
-    }, []);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/route/insert", {
+        axios.post("http://localhost:3001/bus_route/insert", {
             route_id: route_id,
-            station_code: station_code,
-            order: order
+            break_time: break_time
         })
 
-        const station = dataStationName.filter(item => item[`STATION CODE`] === station_code)
-        console.log(station[0][`STATION NAME`]);
-        let newRoute = { ['ROUTE ID']: route_id, ['STATION CODE']: station_code, [`STATION NAME`]: station[0][`STATION NAME`], [`ORDER`]: order };
-        setDataRoute([...dataRoute, newRoute]);
+        // alert("Successful Insert");
+        let newBusRoute = { ['ROUTE ID']: route_id, ['BREAK TIME']: break_time };
+        setDataBusRoute([...dataBusRoute, newBusRoute]);
     }
 
-    const handleDelete = (route_id, station_code, order) => {
-        axios.delete(`http://localhost:3001/route/delete/${route_id}/${station_code}/${order}`)
+    const handleDelete = (route_id) => {
+        axios.delete(`http://localhost:3001/bus_route/delete/${route_id}`)
 
-        let curr = dataRoute;
-        curr = curr.filter(item => item['ROUTE ID'] !== route_id || item['STATION CODE'] !== station_code || item[`ORDER`] !== order)
-        setDataRoute(curr);
+        let curr = dataBusRoute;
+        curr = curr.filter(item => item['ROUTE ID'] !== route_id)
+        setDataBusRoute(curr);
+    }
+
+    const handleEdit = (route_id, break_time) => {
+        let curr = dataBusRoute;
+        let index = curr.findIndex(item => item[`ROUTE ID`] === route_id);
+
+        const newBusRoute = { ['ROUTE ID']: route_id, ['BREAK TIME']: break_time };
+
+        setDataBusRoute(curr.map((curr, index1) => index1 === index ? newBusRoute : curr));
     }
 
     return (
         <>
-            <h3>Tuyến xe </h3>
+            <h3>Tuyến xe</h3>
 
             <Form>
                 <Row>
-                    <Col className="pr-1" md="1">
+                    <Col className="pr-1" md="2">
                         <Form.Group>
                             <label>Tuyến xe</label>
                             <Form.Control
@@ -106,23 +94,14 @@ const Route = () => {
                     </Col>
                     <Col className="px-1" md="2">
                         <Form.Group>
-                            <label htmlFor="exampleInputEmail1">Mã điểm đón</label>
+                            <label htmlFor="exampleInputEmail1">Thời gian giãn cách</label>
                             <Form.Control
-                                type="text"
-                                onChange={(e) => { setStation_code(e.target.value) }}
+                                type="time"
+                                onChange={(e) => { setBreak_time(e.target.value) }}
                             ></Form.Control>
                         </Form.Group>
                     </Col>
-                    <Col className="px-1" md="1">
-                        <Form.Group>
-                            <label>Thứ tự</label>
-                            <Form.Control
-                                type="text"
-                                onChange={(e) => { setOrder(e.target.value) }}
-                            ></Form.Control>
-                        </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="2">
+                    <Col className="pl-1" md="2">
                         <Button
                             className="btn-fill pull-right repairSubmit"
                             type="submit"
@@ -139,26 +118,29 @@ const Route = () => {
                 <thead>
                     <tr>
                         <th>Tuyến xe</th>
-                        <th>Mã điểm đón</th>
-                        <th>Tên trạm</th>
-                        <th>Thứ tự</th>
+                        <th>Thời gian giãn cách</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {isError === false && loading === false && dataRoute && dataRoute.length > 0 &&
-                        dataRoute.map((item, index) => {
+                    {isError === false && loading === false && dataBusRoute && dataBusRoute.length > 0 &&
+                        dataBusRoute.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item['ROUTE ID']}</td>
-                                    <td>{item['STATION CODE']}</td>
-                                    <td>{item['STATION NAME']}</td>
-                                    <td>{item[`ORDER`]}</td>
+                                    <td>{item['BREAK TIME']}</td>
+                                    <td>
+                                        <ModalEditBusRoute
+                                            route_id={item['ROUTE ID']}
+                                            break_time={item['BREAK TIME']}
+                                            onHandleEdit={handleEdit}
+                                        />
+                                    </td>
                                     <td>
                                         <Button
                                             variant="danger"
                                             size="sm"
                                             onClick={() => {
-                                                handleDelete(item['ROUTE ID'], item['STATION CODE'], item[`ORDER`])
+                                                handleDelete(item['ROUTE ID'])
                                             }}><i className="fas fa-trash"></i></Button>
                                     </td>
                                 </tr>
@@ -181,4 +163,4 @@ const Route = () => {
     );
 }
 
-export default Route;
+export default Bus_Route;

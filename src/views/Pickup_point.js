@@ -57,7 +57,7 @@ const Pickup_point = () => {
             address: address
         })
 
-        alert("Successful Insert");
+        // alert("Successful Insert");
         let newPickupPoint = { ['STATION CODE']: station_code, ['STATION NAME']: station_name, ADDRESS: address };
         setDataPickUpPoint([...dataPickUpPoint, newPickupPoint]);
     }
@@ -94,7 +94,7 @@ const Pickup_point = () => {
                             ></Form.Control>
                         </Form.Group>
                     </Col>
-                    <Col className="pr-1" md="3">
+                    <Col className="px-1" md="3">
                         <Form.Group>
                             <label>Tên điểm đón</label>
                             <Form.Control
@@ -113,7 +113,7 @@ const Pickup_point = () => {
                         </Form.Group>
                     </Col>
 
-                    <Col className="px-1" md="2">
+                    <Col className="pr-1" md="2">
                         <Button
                             className="btn-fill pull-right repairSubmit"
                             type="submit"

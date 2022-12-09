@@ -22,20 +22,12 @@ import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
-import Upgrade from "views/Upgrade.js";
 import In_Route from "views/In_Route";
 import Pickup_point from "views/Pickup_point";
 import Route from "views/Route";
+import Bus_Route from "views/Bus_Route";
 
 const dashboardRoutes = [
-  {
-    upgrade: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "nc-icon nc-alien-33",
-    component: Upgrade,
-    layout: "/admin"
-  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -104,6 +96,13 @@ const dashboardRoutes = [
     name: "Lộ trình",
     icon: "nc-icon nc-bell-55",
     component: Route,
+    layout: "/admin"
+  },
+  {
+    path: "/bus_route",
+    name: "Tuyến xe",
+    icon: "nc-icon nc-bell-55",
+    component: Bus_Route,
     layout: "/admin"
   }
 ];
