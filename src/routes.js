@@ -25,6 +25,7 @@ import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
 import In_Route from "views/In_Route";
 import Pickup_point from "views/Pickup_point";
+import Route from "views/Route";
 
 const dashboardRoutes = [
   {
@@ -96,6 +97,13 @@ const dashboardRoutes = [
     name: "Điểm đón khách",
     icon: "nc-icon nc-bell-55",
     component: Pickup_point,
+    layout: "/admin"
+  },
+  {
+    path: "/route",
+    name: "Lộ trình",
+    icon: "nc-icon nc-bell-55",
+    component: Route,
     layout: "/admin"
   }
 ];
