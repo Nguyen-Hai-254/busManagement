@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import ModalEditInRoute from "components/Modal/In_RouteModal";
 
 import {
     Badge,
@@ -70,6 +71,15 @@ const In_Route = () => {
         let curr = dataInRoute;
         curr = curr.filter(item => item['ROUTE ID'] !== route_id || item['MOVEMENT DIRECTION'] !== movement_direction || item.No !== No)
         setDataInRoute(curr);
+    }
+
+    const handleEdit = (license_plate, route_id, movement_direction, No) => {
+        let curr = dataInRoute;
+        let index = curr.findIndex(item => item[`ROUTE ID`] === route_id && item[`MOVEMENT DIRECTION`] === movement_direction && item.No === No);
+
+        const newInRoute = { ['LICENSE PLATE']: license_plate, ['ROUTE ID']: route_id, ['MOVEMENT DIRECTION']: movement_direction, No: No };
+        console.log(newInRoute);
+        setDataInRoute(curr.map((curr, index1) => index1 === index ? newInRoute : curr));
     }
 
     return (
@@ -146,9 +156,21 @@ const In_Route = () => {
                                     <td>{item['MOVEMENT DIRECTION']}</td>
                                     <td>{item.No}</td>
                                     <td>
-                                        <button onClick={() => {
-                                            handleDelete(item['ROUTE ID'], item['MOVEMENT DIRECTION'], item.No)
-                                        }}>Delete</button>
+                                        <ModalEditInRoute
+                                            license_plate={item['LICENSE PLATE']}
+                                            route_id={item['ROUTE ID']}
+                                            movement_direction={item['MOVEMENT DIRECTION']}
+                                            No={item.No}
+                                            onHandleEdit={handleEdit}
+                                        />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() => {
+                                                handleDelete(item['ROUTE ID'], item['MOVEMENT DIRECTION'], item.No)
+                                            }}><i className="fas fa-trash"></i></Button>
                                     </td>
                                 </tr>
                             )

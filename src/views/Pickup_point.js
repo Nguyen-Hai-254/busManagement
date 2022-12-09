@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ModalEditPickupPoint from "components/Modal/Pickup_point";
+import ModalEditPickupPoint from "components/Modal/Pickup_pointModal";
 
 import {
     Badge,
@@ -73,14 +73,8 @@ const Pickup_point = () => {
     const handleEdit = (station_code, station_name, address) => {
         let curr = dataPickUpPoint;
         let index = curr.findIndex(item => item[`STATION CODE`] === station_code);
-        // curr[index][`STATION NAME`] = station_name;
-        // curr[index][`ADDRESS`] = address;
-
-        // console.log(curr[index][`STATION NAME`]);
-        // console.log(curr[index][`ADDRESS`]);
 
         const newPickupPoint = { [`STATION CODE`]: station_code, [`STATION NAME`]: station_name, ADDRESS: address };
-        // curr[index] = newPickupPoint;
 
         setDataPickUpPoint(curr.map((curr, index1) => index1 === index ? newPickupPoint : curr));
     }

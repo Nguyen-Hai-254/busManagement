@@ -29,7 +29,8 @@ router.post("/insert", (req, res) => {
 
     const sqlInsert = "INSERT INTO `IN ROUTE` VALUES (?, ?, ?, ?)";
     db.query(sqlInsert, [license_plate, route_id, movement_direction, No], (err, result) => {
-        console.log(err);
+        if (err) console.log(err);
+        else console.log("Insert successful");
     });
 });
 
@@ -39,7 +40,18 @@ router.delete(`/delete/:route_id/:movement_direction/:No`, (req, res) => {
     const sqlDelete = "DELETE FROM `IN ROUTE` WHERE `ROUTE ID` = ? AND `MOVEMENT DIRECTION` = ? AND No = ?"
     db.query(sqlDelete, [route_id, movement_direction, No], (err, result) => {
         if (err) console.log(err);
-        else console.log(result);
+        else console.log("Deleted!");
+    })
+});
+
+router.put(`/edit/:route_id/:movement_direction/:No`, (req, res) => {
+    const { route_id, movement_direction, No } = req.params;
+    const license_plate = req.body.license_plate;
+
+    const sqlEdit = "UPDATE `IN ROUTE` SET `LICENSE PLATE` = ? WHERE `ROUTE ID` = ? AND `MOVEMENT DIRECTION` = ? AND No = ?"
+    db.query(sqlEdit, [license_plate, route_id, movement_direction, No], (err, result) => {
+        if (err) console.log(err);
+        else console.log("Edit Successful!");
     })
 });
 
