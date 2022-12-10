@@ -8,6 +8,8 @@ import Router from "./routers/Route.js";
 import Bus_Route from "./routers/Bus_route.js";
 import Shift from "./routers/Shift.js";
 import Single_Ticket from "./routers/Single_ticket.js";
+import Provide_Single_Ticket from "./routers/Provide_single_ticket.js";
+
 
 const app = express();
 const db = mysql.createPool({
@@ -30,6 +32,7 @@ app.use('/route', Router);
 app.use('/Bus_Route', Bus_Route);
 app.use('/Shift', Shift);
 app.use('/Single_ticket', Single_Ticket);
+app.use('/Provide_single_ticket', Provide_Single_Ticket);
 
 
 app.get("/", (req, res) => {

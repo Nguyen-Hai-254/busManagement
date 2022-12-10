@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
-import ModalEditSingleTicket from "components/Modal/Single_TicketModal";
+import ModalEditProvideSingleTicket from "components/Modal/Provide_Single_TicketModel";
 
 import {
     Badge,
@@ -15,28 +15,31 @@ import {
     Col,
 } from "react-bootstrap";
 
-const Single_Ticket = () => {
+const Provide_Single_Ticket = () => {
 
-    const [dataSingleTicket, setDataSingleTicket] = useState([]);
+    const [dataProvideSingleTicket, setDataProvideSingleTicket] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const url = 'http://localhost:3001/single_ticket/get';
+    const url = 'http://localhost:3001/provide_single_ticket/get';
 
     const [type, setType] = useState();
     const [route_id, setRoute_id] = useState();
-    const [price, setPrice] = useState();
+    const [license_plate, setLicense_plate] = useState();
+    const [date, setDate] = useState();
+    const [amount, setAmount] = useState();
 
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const res = await axios.get(url)
-                const dataSingleTicket = res && res.data ? res.data : [];
-                setDataSingleTicket(dataSingleTicket);
+                const dataProvideSingleTicket = res && res.data ? res.data : [];
+                // dataProvideSingleTicket = dataProvideSingleTicket.map(item => item.DATE = item.DATE.getDate())
+                setDataProvideSingleTicket(dataProvideSingleTicket);
                 setLoading(false);
                 setIsError(false);
-                console.log(dataSingleTicket);
+                console.log(dataProvideSingleTicket);
             }
             catch (e) {
                 setIsError(true);
@@ -52,37 +55,39 @@ const Single_Ticket = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/single_ticket/insert", {
+        axios.post("http://localhost:3001/provide_single_ticket/insert", {
             type: type,
             route_id: route_id,
-            price: price
+            license_plate: license_plate,
+            date: date,
+            amount: amount
         })
 
         // alert("Successful Insert");
-        let NewSingleTicket = { ['TYPE']: type, ['ROUTE ID']: route_id, ['PRICE']: price };
-        setDataSingleTicket([...dataSingleTicket, NewSingleTicket]);
+        let newProvideSingleTicket = { TYPE: type, ['ROUTE ID']: route_id, ['LICENSE PLATE']: license_plate, DATE: date, AMOUNT: amount };
+        setDataProvideSingleTicket([...dataProvideSingleTicket, newProvideSingleTicket]);
     }
 
-    const handleDelete = (type, route_id) => {
-        axios.delete(`http://localhost:3001/single_ticket/delete/${type}/${route_id}`)
+    const handleDelete = (type, route_id, license_plate, date) => {
+        axios.delete(`http://localhost:3001/provide_single_ticket/delete/${type}/${route_id}/${license_plate}/${date}`)
 
-        let curr = dataSingleTicket;
-        curr = curr.filter(item => item.TYPE !== type || item['ROUTE ID'] !== route_id)
-        setDataSingleTicket(curr);
+        let curr = dataProvideSingleTicket;
+        curr = curr.filter(item => item.TYPE !== type || item['ROUTE ID'] !== route_id || item['LICENSE PLATE'] !== license_plate || item.date !== date)
+        setDataProvideSingleTicket(curr);
     }
 
-    const handleEdit = (type, route_id, price) => {
-        let curr = dataSingleTicket;
-        let index = curr.findIndex(item => item[`ROUTE ID`] === route_id && item.TYPE === type);
+    const handleEdit = (type, route_id, license_plate, date, amount) => {
+        let curr = dataProvideSingleTicket;
+        let index = curr.findIndex(item => item.TYPE === type && item[`ROUTE ID`] === route_id && item[`LICENSE PLATE`] === license_plate && item.date === date);
 
-        const NewSingleTicket = { TYPE: type, ['ROUTE ID']: route_id, PRICE: price };
-        console.log(NewSingleTicket);
-        setDataSingleTicket(curr.map((curr, index1) => index1 === index ? NewSingleTicket : curr));
+        const newProvideSingleTicket = { TYPE: type, ['ROUTE ID']: route_id, ['LICENSE PLATE']: license_plate, DATE: date, AMOUNT: amount };
+        console.log(newProvideSingleTicket);
+        setDataProvideSingleTicket(curr.map((curr, index1) => index1 === index ? newProvideSingleTicket : curr));
     }
 
     return (
         <>
-            <h3>Vé ngày</h3>
+            <h3>Đã bán vé ngày</h3>
 
             <Form>
                 <Row>
@@ -106,10 +111,28 @@ const Single_Ticket = () => {
                     </Col>
                     <Col className="px-1" md="2">
                         <Form.Group>
-                            <label htmlFor="exampleInputEmail1">Giá vé</label>
+                            <label htmlFor="exampleInputEmail1">Biến số xe</label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setLicense_plate(e.target.value) }}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="2">
+                        <Form.Group>
+                            <label>Ngày bán</label>
+                            <Form.Control
+                                type="date"
+                                onChange={(e) => { setDate(e.target.value)}}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="2">
+                        <Form.Group>
+                            <label>Số lượng</label>
                             <Form.Control
                                 type="number"
-                                onChange={(e) => { setPrice(e.target.value) }}
+                                onChange={(e) => { setAmount(e.target.value) }}
                             ></Form.Control>
                         </Form.Group>
                     </Col>
@@ -131,22 +154,28 @@ const Single_Ticket = () => {
                     <tr>
                         <th>Loại vé</th>
                         <th>Tuyến xe</th>
-                        <th>Giá vé</th>
+                        <th>Biển số xe</th>
+                        <th>Ngày bán</th>
+                        <th>Số lượng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {isError === false && loading === false && dataSingleTicket && dataSingleTicket.length > 0 &&
-                        dataSingleTicket.map((item, index) => {
+                    {isError === false && loading === false && dataProvideSingleTicket && dataProvideSingleTicket.length > 0 &&
+                        dataProvideSingleTicket.map((item, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{item['TYPE']}</td>
+                                    <td>{item.TYPE}</td>
                                     <td>{item['ROUTE ID']}</td>
-                                    <td>{item['PRICE']}.000 đ/vé</td>
+                                    <td>{item['LICENSE PLATE']}</td>
+                                    <td>{item.DATE}</td>
+                                    <td>{item.AMOUNT}</td>
                                     <td className="last_td">
-                                        <ModalEditSingleTicket
-                                            type={item['TYPE']}
+                                        <ModalEditProvideSingleTicket
+                                            type={item.TYPE}
                                             route_id={item['ROUTE ID']}
-                                            price={item['PRICE']}
+                                            license_plate={item['LICENSE PLATE']}
+                                            date={item.date}
+                                            amount={item.amount}
                                             onHandleEdit={handleEdit}
                                         />
                                         <Button
@@ -154,7 +183,7 @@ const Single_Ticket = () => {
                                             className="margin-left"
                                             size="sm"
                                             onClick={() => {
-                                                handleDelete(item.TYPE, item['ROUTE ID'])
+                                                handleDelete(item.TYPE, item['ROUTE ID'], item['LICENSE PLATE'], item.DATE)
                                             }}><i className="fas fa-trash"></i></Button>
                                     </td>
                                 </tr>
@@ -177,4 +206,4 @@ const Single_Ticket = () => {
     );
 }
 
-export default Single_Ticket;
+export default Provide_Single_Ticket;

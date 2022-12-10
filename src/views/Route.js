@@ -117,7 +117,7 @@ const Route = () => {
                         <Form.Group>
                             <label>Thứ tự</label>
                             <Form.Control
-                                type="text"
+                                type="number"
                                 onChange={(e) => { setOrder(e.target.value) }}
                             ></Form.Control>
                         </Form.Group>
