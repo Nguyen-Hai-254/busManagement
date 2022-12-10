@@ -142,17 +142,16 @@ const Shift = () => {
                                     <td>{item.No}</td>
                                     <td>{item['START TIME']}</td>
                                     <td>{item['FINISH TIME']}</td>
-                                    <td>
+                                    <td className="last_td">
                                         <ModalEditShift
                                             No={item.No}
                                             start_time={item['START TIME']}
                                             finish_time={item['FINISH TIME']}
                                             onHandleEdit={handleEdit}
                                         />
-                                    </td>
-                                    <td>
                                         <Button
                                             variant="danger"
+                                            className="margin-left"
                                             size="sm"
                                             onClick={() => {
                                                 handleDelete(item.No)

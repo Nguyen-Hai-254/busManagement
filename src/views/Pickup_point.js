@@ -142,17 +142,16 @@ const Pickup_point = () => {
                                     <td>{item['STATION CODE']}</td>
                                     <td>{item['STATION NAME']}</td>
                                     <td>{item['ADDRESS']}</td>
-                                    <td>
+                                    <td className="last_td">
                                         <ModalEditPickupPoint
                                             station_code={item['STATION CODE']}
                                             station_name={item['STATION NAME']}
                                             address={item['ADDRESS']}
                                             onHandleEdit={handleEdit}
                                         />
-                                    </td>
-                                    <td>
                                         <Button
                                             variant="danger"
+                                            className="margin-left"
                                             size="sm"
                                             onClick={() => {
                                                 handleDelete(item['STATION CODE'])

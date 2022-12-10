@@ -27,6 +27,7 @@ import Pickup_point from "views/Pickup_point";
 import Route from "views/Route";
 import Bus_Route from "views/Bus_Route";
 import Shift from "views/Shift";
+import Single_Ticket from "views/Single_Ticket";
 
 const dashboardRoutes = [
   {
@@ -111,6 +112,13 @@ const dashboardRoutes = [
     name: "Ca chạy",
     icon: "nc-icon nc-bell-55",
     component: Shift,
+    layout: "/admin"
+  },
+  {
+    path: "/single_ticket",
+    name: "Vé ngày",
+    icon: "nc-icon nc-bell-55",
+    component: Single_Ticket,
     layout: "/admin"
   }
 ];

@@ -128,16 +128,15 @@ const Bus_Route = () => {
                                 <tr key={index}>
                                     <td>{item['ROUTE ID']}</td>
                                     <td>{item['BREAK TIME']}</td>
-                                    <td>
+                                    <td className="last_td">
                                         <ModalEditBusRoute
                                             route_id={item['ROUTE ID']}
                                             break_time={item['BREAK TIME']}
                                             onHandleEdit={handleEdit}
                                         />
-                                    </td>
-                                    <td>
                                         <Button
                                             variant="danger"
+                                            className="margin-left"
                                             size="sm"
                                             onClick={() => {
                                                 handleDelete(item['ROUTE ID'])

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import ModalEditSingleTicket from "components/Modal/Single_TicketModal";
 
 import {
     Badge,
@@ -14,29 +15,28 @@ import {
     Col,
 } from "react-bootstrap";
 
-const Route = () => {
+const Single_Ticket = () => {
 
-    const [dataRoute, setDataRoute] = useState([]);
+    const [dataSingleTicket, setDataSingleTicket] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const url = 'http://localhost:3001/route/get';
+    const url = 'http://localhost:3001/single_ticket/get';
 
+    const [type, setType] = useState();
     const [route_id, setRoute_id] = useState();
-    const [station_code, setStation_code] = useState();
-    const [order, setOrder] = useState();
-    const [dataStationName, setDataStationName] = useState([]);
+    const [price, setPrice] = useState();
 
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const res = await axios.get(url)
-                const dataRoute = res && res.data ? res.data : [];
-                setDataRoute(dataRoute);
+                const dataSingleTicket = res && res.data ? res.data : [];
+                setDataSingleTicket(dataSingleTicket);
                 setLoading(false);
                 setIsError(false);
-                console.log(dataRoute);
+                console.log(dataSingleTicket);
             }
             catch (e) {
                 setIsError(true);
@@ -49,53 +49,53 @@ const Route = () => {
 
     }, [url]);
 
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const res = await axios.get('http://localhost:3001/pickup_point/get')
-                const dataStationName = res && res.data ? res.data : [];
-                setDataStationName(dataStationName);
-                console.log(dataStationName);
-            }
-            catch (e) {
-                console.log('error: ', e.message);
-            }
-        }
-
-        loadData();
-
-    }, []);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/route/insert", {
+        axios.post("http://localhost:3001/single_ticket/insert", {
+            type: type,
             route_id: route_id,
-            station_code: station_code,
-            order: order
+            price: price
         })
 
-        const station = dataStationName.filter(item => item[`STATION CODE`] === station_code)
-        console.log(station[0][`STATION NAME`]);
-        let newRoute = { ['ROUTE ID']: route_id, ['STATION CODE']: station_code, [`STATION NAME`]: station[0][`STATION NAME`], [`ORDER`]: order };
-        setDataRoute([...dataRoute, newRoute]);
+        // alert("Successful Insert");
+        let NewSingleTicket = { ['TYPE']: type, ['ROUTE ID']: route_id, ['PRICE']: price };
+        setDataSingleTicket([...dataSingleTicket, NewSingleTicket]);
     }
 
-    const handleDelete = (route_id, station_code, order) => {
-        axios.delete(`http://localhost:3001/route/delete/${route_id}/${station_code}/${order}`)
+    const handleDelete = (type, route_id) => {
+        axios.delete(`http://localhost:3001/single_ticket/delete/${type}/${route_id}`)
 
-        let curr = dataRoute;
-        curr = curr.filter(item => item['ROUTE ID'] !== route_id || item['STATION CODE'] !== station_code || item[`ORDER`] !== order)
-        setDataRoute(curr);
+        let curr = dataSingleTicket;
+        curr = curr.filter(item => item.TYPE !== type || item['ROUTE ID'] !== route_id)
+        setDataSingleTicket(curr);
+    }
+
+    const handleEdit = (type, route_id, price) => {
+        let curr = dataSingleTicket;
+        let index = curr.findIndex(item => item[`ROUTE ID`] === route_id && item.TYPE === type);
+
+        const NewSingleTicket = { TYPE: type, ['ROUTE ID']: route_id, PRICE: price };
+        console.log(NewSingleTicket);
+        setDataSingleTicket(curr.map((curr, index1) => index1 === index ? NewSingleTicket : curr));
     }
 
     return (
         <>
-            <h3>Tuyến xe </h3>
+            <h3>Vé ngày</h3>
 
             <Form>
                 <Row>
-                    <Col className="pr-1" md="1">
+                    <Col className="pr-1" md="2">
+                        <Form.Group>
+                            <label>Loại vé</label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => { setType(e.target.value) }}
+                            ></Form.Control>
+                        </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="2">
                         <Form.Group>
                             <label>Tuyến xe</label>
                             <Form.Control
@@ -106,19 +106,10 @@ const Route = () => {
                     </Col>
                     <Col className="px-1" md="2">
                         <Form.Group>
-                            <label htmlFor="exampleInputEmail1">Mã điểm đón</label>
+                            <label htmlFor="exampleInputEmail1">Giá vé</label>
                             <Form.Control
                                 type="text"
-                                onChange={(e) => { setStation_code(e.target.value) }}
-                            ></Form.Control>
-                        </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="1">
-                        <Form.Group>
-                            <label>Thứ tự</label>
-                            <Form.Control
-                                type="text"
-                                onChange={(e) => { setOrder(e.target.value) }}
+                                onChange={(e) => { setPrice(e.target.value) }}
                             ></Form.Control>
                         </Form.Group>
                     </Col>
@@ -138,27 +129,32 @@ const Route = () => {
             <Table className="table-hover table-striped">
                 <thead>
                     <tr>
+                        <th>Loại vé</th>
                         <th>Tuyến xe</th>
-                        <th>Mã điểm đón</th>
-                        <th>Tên trạm</th>
-                        <th>Thứ tự</th>
+                        <th>Giá vé</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {isError === false && loading === false && dataRoute && dataRoute.length > 0 &&
-                        dataRoute.map((item, index) => {
+                    {isError === false && loading === false && dataSingleTicket && dataSingleTicket.length > 0 &&
+                        dataSingleTicket.map((item, index) => {
                             return (
                                 <tr key={index}>
+                                    <td>{item['TYPE']}</td>
                                     <td>{item['ROUTE ID']}</td>
-                                    <td>{item['STATION CODE']}</td>
-                                    <td>{item['STATION NAME']}</td>
-                                    <td>{item[`ORDER`]}</td>
+                                    <td>{item['PRICE']}.000 đ/vé</td>
                                     <td className="last_td">
+                                        <ModalEditSingleTicket
+                                            type={item['TYPE']}
+                                            route_id={item['ROUTE ID']}
+                                            price={item['PRICE']}
+                                            onHandleEdit={handleEdit}
+                                        />
                                         <Button
                                             variant="danger"
+                                            className="margin-left"
                                             size="sm"
                                             onClick={() => {
-                                                handleDelete(item['ROUTE ID'], item['STATION CODE'], item[`ORDER`])
+                                                handleDelete(item.TYPE, item['ROUTE ID'])
                                             }}><i className="fas fa-trash"></i></Button>
                                     </td>
                                 </tr>
@@ -181,4 +177,4 @@ const Route = () => {
     );
 }
 
-export default Route;
+export default Single_Ticket;

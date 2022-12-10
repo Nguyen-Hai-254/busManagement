@@ -155,7 +155,7 @@ const In_Route = () => {
                                     <td>{item['ROUTE ID']}</td>
                                     <td>{item['MOVEMENT DIRECTION']}</td>
                                     <td>{item.No}</td>
-                                    <td>
+                                    <td className="last_td">
                                         <ModalEditInRoute
                                             license_plate={item['LICENSE PLATE']}
                                             route_id={item['ROUTE ID']}
@@ -163,10 +163,9 @@ const In_Route = () => {
                                             No={item.No}
                                             onHandleEdit={handleEdit}
                                         />
-                                    </td>
-                                    <td>
                                         <Button
                                             variant="danger"
+                                            className="margin-left"
                                             size="sm"
                                             onClick={() => {
                                                 handleDelete(item['ROUTE ID'], item['MOVEMENT DIRECTION'], item.No)
