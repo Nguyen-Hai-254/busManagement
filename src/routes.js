@@ -31,6 +31,7 @@ import Single_Ticket from "views/Single_Ticket";
 import Provide_Single_Ticket from "views/Provide_Single_Ticket";
 import Monthly_Ticket from "views/Monthly_Ticket";
 import DAT_Monthly_Ticket from "views/DAT_Monthly_Ticket";
+import Monthly_Ticket_Salesman from "views/Monthly_Ticket_Salesman";
 
 const dashboardRoutes = [
   {
@@ -143,6 +144,13 @@ const dashboardRoutes = [
     name: "Date & Time Monthly Ticket",
     icon: "nc-icon nc-bell-55",
     component: DAT_Monthly_Ticket,
+    layout: "/admin"
+  },
+  {
+    path: "/monthly_ticket_salesman",
+    name: "Nhân viên bán vé tháng",
+    icon: "nc-icon nc-bell-55",
+    component: Monthly_Ticket_Salesman,
     layout: "/admin"
   }
 ];
