@@ -30,6 +30,7 @@ import Shift from "views/Shift";
 import Single_Ticket from "views/Single_Ticket";
 import Provide_Single_Ticket from "views/Provide_Single_Ticket";
 import Monthly_Ticket from "views/Monthly_Ticket";
+import DAT_Monthly_Ticket from "views/DAT_Monthly_Ticket";
 
 const dashboardRoutes = [
   {
@@ -135,6 +136,13 @@ const dashboardRoutes = [
     name: "Vé tháng",
     icon: "nc-icon nc-bell-55",
     component: Monthly_Ticket,
+    layout: "/admin"
+  },
+  {
+    path: "/dat_monthly_ticket",
+    name: "Date & Time Monthly Ticket",
+    icon: "nc-icon nc-bell-55",
+    component: DAT_Monthly_Ticket,
     layout: "/admin"
   }
 ];
