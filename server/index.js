@@ -13,6 +13,7 @@ import Monthly_Ticket from "./routers/Monthly_ticket.js";
 import DAT_Monthly_Ticket from "./routers/DAT_monthly_ticket.js";
 import Monthly_Ticket_Salesman from "./routers/Monthy_ticket_salesman.js";
 import Sold_Monthly_Ticket from "./routers/Sold_monthly_ticket.js";
+import Client from "./routers/Client.js";
 
 
 const app = express();
@@ -39,8 +40,9 @@ app.use('/Single_ticket', Single_Ticket);
 app.use('/Provide_single_ticket', Provide_Single_Ticket);
 app.use('/Monthly_ticket', Monthly_Ticket);
 app.use('/DAT_monthly_ticket', DAT_Monthly_Ticket);
-app.use('/Monthly_ticket_salesman', Monthly_Ticket_Salesman);
+app.use('/Monthly__ticket_salesman', Monthly_Ticket_Salesman);
 app.use('/Sold_monthly_ticket', Sold_Monthly_Ticket);
+app.use('/Client', Client);
 
 
 app.get("/", (req, res) => {

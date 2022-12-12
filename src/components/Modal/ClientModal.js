@@ -3,26 +3,30 @@ import React, { useState, useRef } from "react";
 import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
 
 
-const ModalEditMonthlyTicketSalesman = ({ ID_MTS, branch, onHandleEdit }) => {
+const ModalEditClient = ({ ID, name, DOB, address, onHandleEdit }) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            axios.put(`http://localhost:3001/monthly__ticket_salesman/edit/${ID_MTS}`, {
-                branch: editBranch
+            axios.put(`http://localhost:3001/client/edit/${ID}`, {
+                name: editName,
+                DOB: editDOB,
+                address: editAddress
             })
-            // notifyUpdate("success");
+            // DOBtifyUpdate("success");
             setShow(false);
-            onHandleEdit(ID_MTS, editBranch);
+            onHandleEdit(ID, editName, editDOB, editAddress);
         }
         catch (err) {
-            // notifyUpdate("failed");
+            // DOBtifyUpdate("failed");
             console.log(err)
         }
     };
 
     const [show, setShow] = useState(false);
-    const [editBranch, setEditBranch] = useState(branch);
+    const [editName, setEditName] = useState(name);
+    const [editDOB, setEditDOB] = useState(DOB);
+    const [editAddress, setEditAddress] = useState(address);
 
     const handleShow = () => {
         setShow(true);
@@ -57,7 +61,7 @@ const ModalEditMonthlyTicketSalesman = ({ ID_MTS, branch, onHandleEdit }) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title style={titleAdd} className="text-primary modal-title h4">
-                        UPDATE MONTHLY TICKET SALESMAN
+                        UPDATE CLIENT
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -65,24 +69,38 @@ const ModalEditMonthlyTicketSalesman = ({ ID_MTS, branch, onHandleEdit }) => {
                         <Form.Group>
                             <Row>
                                 <Col lg="6" md sm xs="4" >
-                                    <label>Mã nhân viên</label>
+                                    <label>Mã khách hàng</label>
                                     <Form.Control
                                         type="text"
-                                        defaultValue={ID_MTS}
+                                        defaultValue={ID}
                                         readOnly
                                     ></Form.Control>
                                 </Col>
-                                <Col lg="6" md sm xs="4" >
-                                    <label>Biển số xe</label>
+                                <Col lg="6" md sm xs="4">
+                                    <label>Họ và tên</label>
                                     <Form.Control
                                         type="text"
-                                        defaultValue={branch}
-                                        onChange={(e) => setEditBranch(e.target.value)}
+                                        defaultValue={name}
+                                        onChange={(e) => setEditName(e.target.value)}
                                     ></Form.Control>
                                 </Col>
-
+                                <Col lg="6" md sm xs="4">
+                                    <label>Ngày sinh</label>
+                                    <Form.Control
+                                        type="date"
+                                        defaultValue={DOB}
+                                        onChange={(e) => setEditDOB(e.target.value)}
+                                    ></Form.Control>
+                                </Col>
+                                <Col lg="6" md sm xs="4">
+                                    <label>Địa chỉ</label>
+                                    <Form.Control
+                                        type="text"
+                                        defaultValue={address}
+                                        onChange={(e) => setEditAddress(e.target.value)}
+                                    ></Form.Control>
+                                </Col>
                             </Row>
-
                         </Form.Group>
 
                         <Container style={{ marginTop: "25px" }}>
@@ -118,4 +136,4 @@ const ModalEditMonthlyTicketSalesman = ({ ID_MTS, branch, onHandleEdit }) => {
     );
 }
 
-export default ModalEditMonthlyTicketSalesman;
+export default ModalEditClient;

@@ -33,6 +33,7 @@ import Monthly_Ticket from "views/Monthly_Ticket";
 import DAT_Monthly_Ticket from "views/DAT_Monthly_Ticket";
 import Monthly_Ticket_Salesman from "views/Monthly_Ticket_Salesman";
 import Sold_Monthly_Ticket from "views/Sold_Monthly_Ticket";
+import Client from "views/Client";
 
 const dashboardRoutes = [
   {
@@ -138,7 +139,7 @@ const dashboardRoutes = [
     name: "Vé tháng",
     icon: "nc-icon nc-bell-55",
     component: Monthly_Ticket,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/dat_monthly_ticket",
@@ -148,7 +149,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/monthly_ticket_salesman",
+    path: "/monthly__ticket_salesman",
     name: "Nhân viên bán vé tháng",
     icon: "nc-icon nc-bell-55",
     component: Monthly_Ticket_Salesman,
@@ -159,6 +160,13 @@ const dashboardRoutes = [
     name: "Đã bán vé tháng",
     icon: "nc-icon nc-bell-55",
     component: Sold_Monthly_Ticket,
+    layout: "/admin"
+  },
+  {
+    path: "/client",
+    name: "Khách hàng",
+    icon: "nc-icon nc-bell-55",
+    component: Client,
     layout: "/admin"
   }
 ];

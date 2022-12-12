@@ -21,7 +21,7 @@ const Monthly_Ticket_Salesman = () => {
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const url = 'http://localhost:3001/monthly_ticket_salesman/get';
+    const url = 'http://localhost:3001/monthly__ticket_salesman/get';
 
     const [ID_MTS, setID_MTS] = useState();
     const [branch, setBranch] = useState();
@@ -51,7 +51,7 @@ const Monthly_Ticket_Salesman = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/monthly_ticket_salesman/insert", {
+        axios.post("http://localhost:3001/monthly__ticket_salesman/insert", {
             ID_MTS: ID_MTS,
             branch: branch
         })
@@ -62,7 +62,7 @@ const Monthly_Ticket_Salesman = () => {
     }
 
     const handleDelete = (ID_MTS, branch, No) => {
-        axios.delete(`http://localhost:3001/monthly_ticket_salesman/delete/${ID_MTS}`)
+        axios.delete(`http://localhost:3001/monthly__ticket_salesman/delete/${ID_MTS}`)
 
         let curr = dataMTS;
         curr = curr.filter(item => item['ID MTS'] !== ID_MTS)
