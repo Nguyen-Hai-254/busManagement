@@ -34,6 +34,7 @@ import DAT_Monthly_Ticket from "views/DAT_Monthly_Ticket";
 import Monthly_Ticket_Salesman from "views/Monthly_Ticket_Salesman";
 import Sold_Monthly_Ticket from "views/Sold_Monthly_Ticket";
 import Client from "views/Client";
+import PhoneClient from "views/PhoneClient";
 
 const dashboardRoutes = [
   {
@@ -167,6 +168,13 @@ const dashboardRoutes = [
     name: "Khách hàng",
     icon: "nc-icon nc-bell-55",
     component: Client,
+    layout: "/admin"
+  },
+  {
+    path: "/phoneclient",
+    name: "SĐT khách hàng",
+    icon: "nc-icon nc-bell-55",
+    component: PhoneClient,
     layout: "/admin"
   }
 ];
