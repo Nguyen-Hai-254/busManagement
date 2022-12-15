@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import Monthly_TicketModal from "components/Modal/Monthly_TicketModal";
+import moment from "moment";
 
 import {
     Badge,
@@ -36,6 +37,14 @@ const Monthly_Ticket = () => {
             try {
                 const res = await axios.get(url)
                 const dataMonthlyTicket = res && res.data ? res.data : [];
+
+                dataMonthlyTicket.map(item => {
+                    const date = new Date(item['REGISTER DATE']);
+                    item['REGISTER DATE'] = moment.utc(date).format("YYYY-MM-DD");
+                    const date2 = new Date(item['EXPIRE DATE']);
+                    item['EXPIRE DATE'] = moment.utc(date2).format("YYYY-MM-DD");
+                })
+
                 setDataMonthlyTicket(dataMonthlyTicket);
                 setLoading(false);
                 setIsError(false);

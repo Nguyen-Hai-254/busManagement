@@ -44,72 +44,23 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-chart-pie-35",
-    component: Dashboard,
-    layout: "/admin"
-  },
-  {
-    path: "/user",
-    name: "User Profile",
-    icon: "nc-icon nc-circle-09",
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "nc-icon nc-notes",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-paper-2",
-    component: Typography,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-atom",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
-    component: Notifications,
-    layout: "/admin"
-  },
-  {
     path: "/in_route",
     name: "Thuộc tuyến xe",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-chart-pie-35",
     component: In_Route,
     layout: "/admin"
   },
   {
     path: "/pickup_point",
     name: "Điểm đón khách",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-alien-33",
     component: Pickup_point,
     layout: "/admin"
   },
   {
     path: "/route",
     name: "Lộ trình",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-chart-pie-35",
     component: Route,
     layout: "/admin"
   },
@@ -123,20 +74,20 @@ const dashboardRoutes = [
   {
     path: "/shift",
     name: "Ca chạy",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-notes",
     component: Shift,
     layout: "/admin"
   },
   {
     path: "/single_ticket",
     name: "Vé ngày",
-    icon: "fa-regular fa-ticket",
+    icon: "nc-icon nc-single-copy-04",
     component: Single_Ticket,
     layout: "/admin"
   },
   {
     path: "/sold_single_ticket",
-    name: "Đã bán vé ngày",
+    name: "Cung cấp vé ngày",
     icon: "nc-icon nc-bell-55",
     component: Provide_Single_Ticket,
     layout: "/admin"
@@ -144,21 +95,21 @@ const dashboardRoutes = [
   {
     path: "/monthly_ticket",
     name: "Vé tháng",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-book",
     component: Monthly_Ticket,
     layout: "/admin",
   },
   {
     path: "/dat_monthly_ticket",
     name: "Date & Time Monthly Ticket",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-notes",
     component: DAT_Monthly_Ticket,
     layout: "/admin"
   },
   {
     path: "/monthly__ticket_salesman",
     name: "Nhân viên bán vé tháng",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-male",
     component: Monthly_Ticket_Salesman,
     layout: "/admin"
   },
@@ -172,28 +123,28 @@ const dashboardRoutes = [
   {
     path: "/client",
     name: "Khách hàng",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-users",
     component: Client,
     layout: "/admin"
   },
   {
     path: "/phoneclient",
     name: "SĐT khách hàng",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-phone",
     component: PhoneClient,
     layout: "/admin"
   },
   {
     path: "/bus",
     name: "Xe bus",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-bus",
     component: Bus,
     layout: "/admin"
   },
   {
     path: "/drive",
     name: "Lái xe",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa fa-bicycle",
     component: WorksOn,
     layout: "/admin"
   }

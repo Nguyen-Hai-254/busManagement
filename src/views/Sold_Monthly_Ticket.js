@@ -37,7 +37,7 @@ const Sold_Monthly_Ticket = () => {
 
                 dataSMT.map(item => {
                     const date = new Date(item['BUY DATE']);
-                    item['BUY DATE'] = moment.utc(date).format("YYYY-MM-DD hh:mm:ss ")
+                    item['BUY DATE'] = moment.utc(date).format("YYYY-MM-DD")
                 })
 
                 setDataSMT(dataSMT);

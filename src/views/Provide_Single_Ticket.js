@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import ModalEditProvideSingleTicket from "components/Modal/Provide_Single_TicketModel";
+import moment from "moment";
 
 import {
     Badge,
@@ -35,7 +36,12 @@ const Provide_Single_Ticket = () => {
             try {
                 const res = await axios.get(url)
                 const dataProvideSingleTicket = res && res.data ? res.data : [];
-                // dataProvideSingleTicket = dataProvideSingleTicket.map(item => item.DATE = item.DATE.getDate())
+                
+                dataProvideSingleTicket.map(item => {
+                    const date = new Date(item['DATE']);
+                    item['DATE'] = moment.utc(date).format("YYYY-MM-DD")
+                })
+
                 setDataProvideSingleTicket(dataProvideSingleTicket);
                 setLoading(false);
                 setIsError(false);
@@ -87,7 +93,7 @@ const Provide_Single_Ticket = () => {
 
     return (
         <>
-            <h3>Đã bán vé ngày</h3>
+            <h3>Cung cấp vé ngày</h3>
 
             <Form>
                 <Row>
