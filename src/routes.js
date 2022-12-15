@@ -35,6 +35,12 @@ import Monthly_Ticket_Salesman from "views/Monthly_Ticket_Salesman";
 import Sold_Monthly_Ticket from "views/Sold_Monthly_Ticket";
 import Client from "views/Client";
 import PhoneClient from "views/PhoneClient";
+import Bus from "views/Bus";
+import WorksOn from "views/WorksOn";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+// const ticket = <FontAwesomeIcon icon="fa-regular fa-ticket" />
 
 const dashboardRoutes = [
   {
@@ -110,7 +116,7 @@ const dashboardRoutes = [
   {
     path: "/bus_route",
     name: "Tuyến xe",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-bus-front-12",
     component: Bus_Route,
     layout: "/admin"
   },
@@ -124,7 +130,7 @@ const dashboardRoutes = [
   {
     path: "/single_ticket",
     name: "Vé ngày",
-    icon: "nc-icon nc-bell-55",
+    icon: "fa-regular fa-ticket",
     component: Single_Ticket,
     layout: "/admin"
   },
@@ -175,6 +181,20 @@ const dashboardRoutes = [
     name: "SĐT khách hàng",
     icon: "nc-icon nc-bell-55",
     component: PhoneClient,
+    layout: "/admin"
+  },
+  {
+    path: "/bus",
+    name: "Xe bus",
+    icon: "nc-icon nc-bell-55",
+    component: Bus,
+    layout: "/admin"
+  },
+  {
+    path: "/drive",
+    name: "Lái xe",
+    icon: "nc-icon nc-bell-55",
+    component: WorksOn,
     layout: "/admin"
   }
 ];

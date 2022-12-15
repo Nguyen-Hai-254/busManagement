@@ -14,7 +14,9 @@ import DAT_Monthly_Ticket from "./routers/DAT_monthly_ticket.js";
 import Monthly_Ticket_Salesman from "./routers/Monthy_ticket_salesman.js";
 import Sold_Monthly_Ticket from "./routers/Sold_monthly_ticket.js";
 import Client from "./routers/Client.js";
-import PhoneClient from "./routers/PhoneClient.js"
+import PhoneClient from "./routers/PhoneClient.js";
+import Bus from "./routers/Bus.js";
+import WorksOn from "./routers/WorksOn.js";
 
 
 const app = express();
@@ -45,6 +47,8 @@ app.use('/Monthly__ticket_salesman', Monthly_Ticket_Salesman);
 app.use('/Sold_monthly_ticket', Sold_Monthly_Ticket);
 app.use('/Client', Client);
 app.use('/PhoneClient', PhoneClient);
+app.use('/Bus', Bus);
+app.use('/works_on', WorksOn);
 
 
 app.get("/", (req, res) => {
