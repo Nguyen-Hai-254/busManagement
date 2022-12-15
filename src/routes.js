@@ -41,6 +41,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // const ticket = <FontAwesomeIcon icon="fa-regular fa-ticket" />
+import Employee from "views/Employee";
+import Driver from "views/Driver";
+import AssistantDriver from "views/AssistanDriver";
+import Coordinator from "views/Coordinator";
 
 const dashboardRoutes = [
   {
@@ -146,8 +150,32 @@ const dashboardRoutes = [
     name: "Lái xe",
     icon: "fa fa-bicycle",
     component: WorksOn,
+    path: "/employee",
+    name: "Nhân Viên",
+    icon: "fa fa-user-circle",
+    component: Employee,
+    layout: "/admin"
+  },
+  {
+    path: "/driver",
+    name: "Lái xe",
+    icon: "fa fa-child",
+    component: Driver,
+    layout: "/admin"
+  },
+  {
+    path: "/assitandriver",
+    name: "Phụ xe",
+    icon: "fa fa-user",
+    component: AssistantDriver,
+    layout: "/admin"
+  },
+  {
+    path: "/coordinator",
+    name: "Điều Phối Viên",
+    icon: "fa fa-eye",
+    component: Coordinator,
     layout: "/admin"
   }
 ];
-
 export default dashboardRoutes;

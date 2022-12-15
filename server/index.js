@@ -17,6 +17,10 @@ import Client from "./routers/Client.js";
 import PhoneClient from "./routers/PhoneClient.js";
 import Bus from "./routers/Bus.js";
 import WorksOn from "./routers/WorksOn.js";
+import Employee from './routers/Employee.js'
+import Coordinator from './routers/Coordinator.js'
+import Driver from './routers/Driver.js'
+import AssistanDriver from './routers/AssistanDriver.js'
 
 
 const app = express();
@@ -50,6 +54,11 @@ app.use('/PhoneClient', PhoneClient);
 app.use('/Bus', Bus);
 app.use('/works_on', WorksOn);
 
+//----------Phong------------
+app.use('/Employee', Employee);
+app.use('/Coordinator', Coordinator);
+app.use('/driver', Driver);
+app.use('/assistandriver', AssistanDriver);
 
 app.get("/", (req, res) => {
     res.send("Hello");
