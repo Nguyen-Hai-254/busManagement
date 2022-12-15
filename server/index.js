@@ -15,6 +15,10 @@ import Monthly_Ticket_Salesman from "./routers/Monthy_ticket_salesman.js";
 import Sold_Monthly_Ticket from "./routers/Sold_monthly_ticket.js";
 import Client from "./routers/Client.js";
 import PhoneClient from "./routers/PhoneClient.js"
+import Employee from './routers/Employee.js'
+import Coordinator from './routers/Coordinator.js'
+import Driver from './routers/Driver.js'
+import AssistanDriver from './routers/AssistanDriver.js'
 
 
 const app = express();
@@ -46,6 +50,11 @@ app.use('/Sold_monthly_ticket', Sold_Monthly_Ticket);
 app.use('/Client', Client);
 app.use('/PhoneClient', PhoneClient);
 
+//----------Phong------------
+app.use('/Employee', Employee);
+app.use('/Coordinator', Coordinator);
+app.use('/driver', Driver);
+app.use('/assistandriver', AssistanDriver);
 
 app.get("/", (req, res) => {
     res.send("Hello");

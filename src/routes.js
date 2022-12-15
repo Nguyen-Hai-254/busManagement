@@ -35,6 +35,11 @@ import Monthly_Ticket_Salesman from "views/Monthly_Ticket_Salesman";
 import Sold_Monthly_Ticket from "views/Sold_Monthly_Ticket";
 import Client from "views/Client";
 import PhoneClient from "views/PhoneClient";
+import Employee from "views/Employee";
+import Driver from "views/Driver";
+import AssistantDriver from "views/AssistanDriver";
+import Coordinator from "views/Coordinator";
+import Bus from "views/Bus";
 
 const dashboardRoutes = [
   {
@@ -176,7 +181,41 @@ const dashboardRoutes = [
     icon: "nc-icon nc-bell-55",
     component: PhoneClient,
     layout: "/admin"
+  },
+  {
+    path: "/employee",
+    name: "Nhân Viên",
+    icon: "nc-icon nc-bell-55",
+    component: Employee,
+    layout: "/admin"
+  },
+  {
+    path: "/driver",
+    name: "Lái xe",
+    icon: "nc-icon nc-bell-55",
+    component: Driver,
+    layout: "/admin"
+  },
+  {
+    path: "/assitandriver",
+    name: "Phụ xe",
+    icon: "nc-icon nc-bell-55",
+    component: AssistantDriver,
+    layout: "/admin"
+  },
+  {
+    path: "/coordinator",
+    name: "Điều Phối Viên",
+    icon: "nc-icon nc-bell-55",
+    component: Coordinator,
+    layout: "/admin"
+  },
+  {
+    path: "/bus",
+    name: "Bus",
+    icon: "nc-icon nc-bell-55",
+    component: Bus,
+    layout: "/admin"
   }
 ];
-
 export default dashboardRoutes;
